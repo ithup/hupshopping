@@ -19,5 +19,25 @@ public class UserService {
 		int row=userDao.register(user);
 		return row>0?true:false;
 	}
+	/**
+	 * 用户登录功能
+	 * @param user
+	 * @return
+	 * @throws Exception 
+	 */
+	public User login(User user) throws Exception {
+		return userDao.login(user);
+	}
+	/**
+	 * 激活验证码
+	 * @param activeCode
+	 */
+	public void active(String activeCode) {
+		try {
+			userDao.active(activeCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

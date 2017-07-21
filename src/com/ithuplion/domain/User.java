@@ -20,7 +20,7 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String telephone;
-	private String birthday;
+	private Date birthday;
 	private String sex;
 	private int state;
 	private String code;
@@ -60,10 +60,10 @@ public class User implements Serializable{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getSex() {
