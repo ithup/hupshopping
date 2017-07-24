@@ -46,7 +46,7 @@ public class Register extends HttpServlet {
 			ConvertUtils.register(new Converter() {
 				public Object convert(Class clazz, Object value) {
 					//将string 转为Date
-					SimpleDateFormat format=new SimpleDateFormat("yyyy/MM/dd");
+					SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 					Date date=null;
 					try {
 						date = format.parse(value.toString());
@@ -57,9 +57,7 @@ public class Register extends HttpServlet {
 				}
 			}, Date.class);
 			BeanUtils.populate(user, parameterMap);//映射封装
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		user.setUid(CommonsUtils.getUUID());
@@ -79,14 +77,13 @@ public class Register extends HttpServlet {
 			try {
 				MailUtils.sendMail(user.getEmail(), emailMsg);
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("网络异常，请连接网络");
 			} 
 			//跳转到注册成功页面
 			response.sendRedirect(request.getContextPath()+"/registerSuccess.jsp");
 		}else{
 			//跳转到注册失败页面
 			response.sendRedirect(request.getContextPath()+"/registerFail.jsp");
-			System.out.println(request.getContextPath());
 		}
 	}
 

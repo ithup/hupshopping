@@ -1,5 +1,7 @@
 package com.ithuplion.service;
 
+import java.sql.SQLException;
+
 import com.ithuplion.dao.UserDao;
 import com.ithuplion.domain.User;
 
@@ -38,6 +40,20 @@ public class UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * 校验用户名是否存在
+	 * @param username
+	 * @return
+	 */
+	public boolean checkUsername(String username) {
+		Long isExist = 0L;
+		try {
+			isExist=userDao.checkUsername(username);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isExist>0?true:false;
 	}
 
 }

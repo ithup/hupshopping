@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.ithuplion.domain.User;
 import com.ithuplion.utils.DataSourceUtils;
@@ -16,6 +17,11 @@ import com.ithuplion.utils.DataSourceUtils;
  */
 public class UserDao {
 	private QueryRunner qr=new QueryRunner(DataSourceUtils.getDataSource());
+	/**
+	 * 用户注册：数据层
+	 * @param user
+	 * @return
+	 */
 	public int register(User user) {
 		String sql="insert into user values(?,?,?,?,?,?,?,?,?,?)";
 		int update = 0;
@@ -45,6 +51,10 @@ public class UserDao {
 	public void active(String activeCode) throws Exception {
 		String sql = "update user set state=? where code=?";
 		qr.update(sql, 1,activeCode);
+	}
+	public Long checkUsername(String username) throws SQLException {
+		String sql="select * from user where username=?";
+		return (Long) qr.query(sql,new ScalarHandler(), username);
 	}
 
 }
